@@ -12,7 +12,7 @@ variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '452eca6b-db4d-4c0e-aa06-600bbcc8f27c'
   imageRepository: 'pawanexamplevotingappbretfisher'
-  containerRegistry: 'classrepo555.azurecr.io'
+  containerRegistry: 'registrynew666.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/result/Dockerfile'
   tag: '$(Build.BuildId)'
 
