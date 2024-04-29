@@ -1,4 +1,10 @@
 # Docker
+- task: Docker@2
+  inputs:
+    containerRegistry: 'pipeline-to-hub'
+    repository: 'pawan071202'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
 # Build and push an image to Azure Container Registry
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
