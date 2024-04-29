@@ -10,7 +10,7 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: '452eca6b-db4d-4c0e-aa06-600bbcc8f27c'
+  dockerRegistryServiceConnection: 'pipeline-to-hub'
   imageRepository: 'pawanexamplevotingappbretfisher'
   containerRegistry: 'registrynew666.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/result/Dockerfile'
