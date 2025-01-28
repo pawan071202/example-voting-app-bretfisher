@@ -1,45 +1,22 @@
-# Docker
-- task: Docker@2
-  inputs:
-    containerRegistry: 'pipeline-to-hub'
-    repository: 'pawan071202'
-    command: 'buildAndPush'
-    Dockerfile: '**/Dockerfile'
-# Build and push an image to Azure Container Registry
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+# yaml for acr build and push 
 
 trigger:
-- main
+  none
 
-resources:
-- repo: self
-
-variables:
-  # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'pipeline-to-hub'
-  imageRepository: 'pawanexamplevotingappbretfisher'
-  containerRegistry: 'registrynew666.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/result/Dockerfile'
-  tag: '$(Build.BuildId)'
-
-  # Agent VM image name
-  vmImageName: 'ubuntu-latest'
+pool:
+  name: dockerpool
+  demands:
+  - agent.name -equals   dockeragent
 
 stages:
-- stage: Build
-  displayName: Build and push stage
-  jobs:
-  - job: Build
-    displayName: Build
-    pool:
-      vmImage: $(vmImageName)
-    steps:
-    - task: Docker@2
-      displayName: Build and push an image to container registry
-      inputs:
-        command: buildAndPush
-        repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
-        tags: |
-          $(tag)
+  - stage: docker_build
+    jobs:
+      - job: "docker_build"
+        steps:
+        - task: DockerCompose@1
+          inputs:
+            containerregistrytype: 'Azure Container Registry'
+            azureSubscription: 'Pay-As-You-Go (c58c123c-4245-4723-a096-5ee1f90682a5)'
+            azureContainerRegistry: '{"loginServer":"classregistry.azurecr.io", "id" : "/subscriptions/c58c123c-4245-4723-a096-5ee1f90682a5/resourceGroups/ACR-grp/providers/Microsoft.ContainerRegistry/registries/classregistry"}'
+            dockerComposeFile: '**/docker-compose.yml'
+            action: 'Run a Docker Compose command'
