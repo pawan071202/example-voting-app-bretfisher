@@ -13,10 +13,9 @@ stages:
     jobs:
       - job: "docker_build"
         steps:
-        - task: DockerCompose@1
+        - task: Docker@2
           inputs:
-            containerregistrytype: 'Azure Container Registry'
-            azureSubscription: 'Pay-As-You-Go (c58c123c-4245-4723-a096-5ee1f90682a5)'
-            azureContainerRegistry: '{"loginServer":"classregistry.azurecr.io", "id" : "/subscriptions/c58c123c-4245-4723-a096-5ee1f90682a5/resourceGroups/ACR-grp/providers/Microsoft.ContainerRegistry/registries/classregistry"}'
-            dockerComposeFile: '**/docker-compose.yml'
-            action: 'Run a Docker Compose command'
+            containerRegistry: 'Dockerhub-to-pipeline'
+            repository: 'pawan071202/class-repository'
+            command: 'buildAndPush'
+            Dockerfile: '**/Dockerfile'
